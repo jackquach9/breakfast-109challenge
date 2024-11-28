@@ -189,7 +189,9 @@ def main():
     st.write("The Dirichlet distribution can unify these probabilities into one: essentially, it is a beta distirbution \
                 for multinomials. Rather than treating these orders as binomials, we can treat them as multinomials, with \
                 certain probabilities of ordering either a blueberry, plain, or chocolate pancake.")
-    st.image('dirichlet_dist.png')
+    l, c, r = st.columns(3)
+    with c:
+        st.image('dirichlet_dist.png')
     st.write('"Hotter" colors represent higher probability densities, and the probabilities increase from left to right on each \
                 side of the triangle. From the left-most side counter-clockwise, the sides are blueberry, plain, and chocolate pancakes. ')
     st.markdown('*Image created from code provided by Thomas Boggs (tboggs on GitHub)')
@@ -214,13 +216,12 @@ def main():
         st.write("You should make", sample[0], "blueberry pancakes,", sample[1], "plain pancakes, and", sample[2], "chocolate pancakes!")
 
     st.divider()
-    st.divider()
 
     st.subheader("Sources and More Information")
     st.write("This project was created through lessons learned from CS109!")
     url = 'https://www.sciencedirect.com/topics/mathematics/dirichlet-distribution'
     st.write("The Dirichlet visualization was made possible through open-source code from Thomas Boggs (tboggs on GitHub).\
-                You can learn more about the Dirichlet distribution [here](%s)" % url)
+                You can learn more about the Dirichlet distribution [here](%s)." % url)
     st.write("The Dirichlet visualization was made possible through open-source code from Thomas Boggs (tboggs on GitHub).")
     st.write("You can read more about this project in my project write-up!")
 
