@@ -215,7 +215,7 @@ def main():
         sample = multinomial.rvs(n_pancakes, ps)
         blueberrry_part = "blueberry pancake," if sample[0] == 1 else "blueberry pancakes,"
         plain_part = "plain pancake, and" if sample[1] == 1 else "plain pancakes, and"
-        chocolate_part = "chocolate pancake!," if sample[2] == 1 else "chocolate pancakes!"
+        chocolate_part = "chocolate pancake!" if sample[2] == 1 else "chocolate pancakes!"
         st.write("You should make", sample[0], blueberrry_part, sample[1], plain_part, sample[2], chocolate_part)
 
     st.divider()
