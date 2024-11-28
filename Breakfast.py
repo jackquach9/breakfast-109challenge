@@ -189,7 +189,7 @@ def main():
     st.write("The Dirichlet distribution can unify these probabilities into one: essentially, it is a beta distirbution \
                 for multinomials. Rather than treating these orders as binomials, we can treat them as multinomials, with \
                 certain probabilities of ordering either a blueberry, plain, or chocolate pancake.")
-    l, c, r = st.columns(3)
+    l, c, r = st.columns([1,4,1])
     with c:
         st.image('dirichlet_dist.png')
     st.write('"Hotter" colors represent higher probability densities, and the probabilities increase from left to right on each \
