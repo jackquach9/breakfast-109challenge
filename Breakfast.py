@@ -213,6 +213,17 @@ def main():
         sample = multinomial.rvs(n_pancakes, ps)
         st.write("You should make", sample[0], "blueberry pancakes,", sample[1], "plain pancakes, and", sample[2], "chocolate pancakes!")
 
+        st.divider()
+        st.divider()
+
+        st.subheader("Sources and More Information")
+        st.write("This project was created through lessons learned from CS109!")
+        url = 'https://www.sciencedirect.com/topics/mathematics/dirichlet-distribution'
+        st.write("The Dirichlet visualization was made possible through open-source code from Thomas Boggs (tboggs on GitHub).\
+                 You can learn more about the Dirichlet distribution [here](%s)" % url)
+        st.write("The Dirichlet visualization was made possible through open-source code from Thomas Boggs (tboggs on GitHub).")
+        st.write("You can read more about this project in my project write-up!")
+
 
 
 
