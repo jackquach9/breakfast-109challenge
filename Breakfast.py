@@ -203,7 +203,7 @@ def main():
         "How many total pancakes can you make?", value=None, placeholder="Type a number..."
     )
     if n_pancakes:
-        alpha = [60, 24, 19]
+        alpha = [61, 25, 20]
 
         sample_p = dirichlet.rvs(alpha, size=1)[0]
 
