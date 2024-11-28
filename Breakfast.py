@@ -225,7 +225,8 @@ def main():
     url = 'https://www.sciencedirect.com/topics/mathematics/dirichlet-distribution'
     st.write("The Dirichlet visualization was made possible through open-source code from Thomas Boggs (tboggs on GitHub).\
                 You can learn more about the Dirichlet distribution [here](%s)." % url)
-    st.write("The Dirichlet visualization was made possible through open-source code from Thomas Boggs (tboggs on GitHub).")
+    opportunity_url = 'https://www.lifemoves.org/directory/opportunity-services-center/'
+    st.write("The Breakfast Club partners with the LifeMoves Palo Alto Opportunity Center, so please visit their website for more information!")
     st.write("You can read more about this project in my project write-up!")
 
 
