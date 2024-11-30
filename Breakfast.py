@@ -125,14 +125,20 @@ def plot_bootstrapping(df):
 
 # Plot beta function
 def plot_beta(a, b, title, color='black'):
-    x = np.linspace(0, 1, 100)
+    x = np.linspace(0, 1, 1000)
     y = beta.pdf(x, a, b)
+    
+
+    maximum = max(y)
+    x_maximum = round(list(y).index(maximum) / 1000, 2)
 
     plt.clf()
     plt.plot(x, y, color=color)
+    plt.plot(x_maximum, maximum, 'ro', label=f'Max: ({x_maximum}, {round(maximum, 2)})')
     plt.title(title)
     plt.xlabel("Probability")
     plt.ylabel("Probability Density")
+    plt.legend()
     st.pyplot(plt)
 
 def main():
@@ -178,20 +184,35 @@ def main():
                 When focusing on blueberry pancakes, an order of a blueberry pancake, for example, would be considered a success, \
                 while any other pancake is a 'failure.'")
     
-    st.write("Our current prior belief (from the data) is in a 58:19:23 ratio, which we could incorporate into our beta distributions.")
+    st.write("Anecdotally, we believe in a 6:2:1 ratio of blueberry:plain:chocolate, which we could incorporate into our beta distributions under a Bayesian approach. With the frequentist approach, we begin with a uniform distribution.")
     
     st.write("Check out the beta distributions of the different types of pancakes!")
 
-    plot_beta(118, 85, "Blueberry Pancakes", color='#464196')
-    plot_beta(47, 156, "Plain Pancakes")
-    plot_beta(38, 165, "Chocolate Pancakes", color='#7B3F00')
+    beta_select = st.segmented_control("Beta Approach", ["Bayesian", "Frequentist"], selection_mode="single", default="Bayesian")
+    initial_blue, initial_plain, initial_chocolate, initial_blue_f, initial_plain_f, initial_chocolate_f = 1,1,1,1,1,1
+    if beta_select == "Bayesian":
+        strength = st.slider("Strength of belief in prior distribution", 1, 100, 1)
+        initial_blue = 6 * strength
+        initial_plain = 2 * strength
+        initial_chocolate = 1 * strength
+        initial_blue_f = initial_plain + initial_chocolate
+        initial_plain_f = initial_blue + initial_chocolate
+        initial_chocolate_f = initial_blue + initial_plain
+
+    plot_beta(60 + initial_blue, 43 + initial_blue_f, "Blueberry Pancakes", color='#464196')
+    plot_beta(24 + initial_plain, 81 + initial_plain_f, "Plain Pancakes")
+    plot_beta(19 + initial_chocolate, 84 + initial_chocolate_f, "Chocolate Pancakes", color='#7B3F00')
 
     st.write("The Dirichlet distribution can unify these probabilities into one: essentially, it is a beta distirbution \
                 for multinomials. Rather than treating these orders as binomials, we can treat them as multinomials, with \
                 certain probabilities of ordering either a blueberry, plain, or chocolate pancake.")
+    
+    dirichlet_mode = st.segmented_control("Dirichlet Approach", ["Bayesian", "Frequentist"], selection_mode="single", default="Bayesian", key="dirichlet_mode")
     l, c, r = st.columns([1,4,1])
+    imagefile = "dirichlet_dist.png" if dirichlet_mode == "Frequentist" else "dirichlet_dist_bayesian.png"
     with c:
-        st.image('dirichlet_dist.png')
+        with st.spinner(''):
+            st.image(imagefile)
     st.write('"Hotter" colors represent higher probability densities, and the probabilities increase from left to right on each \
                 side of the triangle. From the left-most side counter-clockwise, the sides are blueberry, plain, and chocolate pancakes. ')
     st.markdown('*Image created from code provided by Thomas Boggs (tboggs on GitHub)')
@@ -199,11 +220,18 @@ def main():
     st.divider()
 
     st.subheader('Preferred Pancake Predictor', anchor=False)
+    
+    predictor_mode = st.segmented_control("Which approach would you like to use?", ["Bayesian", "Frequentist"], selection_mode="single", default="Bayesian", key="predictor_mode")
+    inits = {"b": 1, "p": 1, "c": 1}
+    if predictor_mode == "Bayesian":
+        predictor_strength = st.slider("Strength of belief in prior distribution", 1, 100, 1, key="predictor_strength")
+        inits = {"b": 6 * predictor_strength, "p": 2 * predictor_strength, "c": 1 * predictor_strength}
+
     n_pancakes = st.number_input(
         "How many total pancakes can you make?", value=None, placeholder="Type a number..."
     )
     if n_pancakes:
-        alpha = [61, 25, 20]
+        alpha = [60 + inits["b"], 24 + inits["p"], 19 + inits["c"]]
 
         sample_p = dirichlet.rvs(alpha, size=1)[0]
 
