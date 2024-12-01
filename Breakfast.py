@@ -144,6 +144,7 @@ def plot_beta(a, b, title, color='black'):
 def main():
     st.title("Probability with Pancakes 🥞", anchor=False)
     st.write("Which pancake is the favorite among diners at the Palo Alto Opportunity Center, and by how much? Let's find out, using 109!")
+    st.markdown("*For the best viewing results, please go to the top right corner and select dark mode under settings.*")
     left, mid, right = st.columns(3)
     with mid:
         st.image('Breakfast-flip.gif')
