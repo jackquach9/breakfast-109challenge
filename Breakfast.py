@@ -204,7 +204,7 @@ def main():
     plot_beta(24 + initial_plain, 81 + initial_plain_f, "Plain Pancakes")
     plot_beta(19 + initial_chocolate, 84 + initial_chocolate_f, "Chocolate Pancakes", color='#7B3F00')
 
-    st.write("The Dirichlet distribution can unify these probabilities into one: essentially, it is a beta distirbution \
+    st.write("The Dirichlet distribution can unify these probabilities into one: essentially, it is a beta distribution \
                 for multinomials. Rather than treating these orders as binomials, we can treat them as multinomials, with \
                 certain probabilities of ordering either a blueberry, plain, or chocolate pancake.")
     
